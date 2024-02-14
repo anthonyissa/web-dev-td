@@ -38,10 +38,30 @@ const validateForm = () => {
 
 const signup = () => {
   if (validateForm()) {
-    alert('Signup successful')
+    sendRegistrationRequest()
     username.value = ''
     email.value = ''
     password.value = ''
+  }
+}
+
+const sendRegistrationRequest = async () => {
+  try {
+    const response = await fetch('https://api.example.com/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username.value,
+        email: email.value,
+        password: password.value
+      })
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.error('Error:', error)
   }
 }
 
